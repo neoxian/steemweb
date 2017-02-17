@@ -1,0 +1,111 @@
+diff --git a/app/components/cards/Comment.jsx b/app/components/cards/Comment.jsx
+index d19243f..d2ae384 100644
+--- a/app/components/cards/Comment.jsx
++++ b/app/components/cards/Comment.jsx
+@@ -178,6 +178,7 @@ class CommentImpl extends React.Component {
+      *    it hides the comment body (but not the header) until the "reveal comment" link is clicked.
+      */
+     _checkHide(props) {
++/*
+         const content = props.cont.get(props.content);
+         if (content) {
+             const hide = hideSubtree(props.cont, props.content)
+@@ -189,6 +190,7 @@ class CommentImpl extends React.Component {
+             }
+             this.setState({hide, hide_body: hide || gray})
+         }
++*/
+     }
+ 
+     toggleCollapsed() {
+diff --git a/app/components/cards/Comment.scss b/app/components/cards/Comment.scss
+index a4f298b..7fde565 100644
+--- a/app/components/cards/Comment.scss
++++ b/app/components/cards/Comment.scss
+@@ -115,7 +115,7 @@
+ }
+ 
+ .Comment__negative_group {
+-    color: #888;
++    color: #FFF;
+     border-top: 1px solid $medium-gray;
+     padding-top: 1rem;
+     clear: none;
+diff --git a/app/components/cards/MarkdownViewer.jsx b/app/components/cards/MarkdownViewer.jsx
+index 21d59c2..9df9bc5 100644
+--- a/app/components/cards/MarkdownViewer.jsx
++++ b/app/components/cards/MarkdownViewer.jsx
+@@ -56,7 +56,8 @@ class MarkdownViewer extends Component {
+ 
+     render() {
+         const {noImage} = this.props
+-        const {allowNoImage} = this.state
++        //const {allowNoImage} = this.state
++        const {allowNoImage} = false 
+         let {text} = this.props
+         if (!text) text = '' // text can be empty, still view the link meta data
+         const {large, /*formId, canEdit, jsonMetadata,*/ highQualityPost} = this.props
+diff --git a/app/components/cards/PostSummary.jsx b/app/components/cards/PostSummary.jsx
+index af8dfd0..7d64c0f 100644
+--- a/app/components/cards/PostSummary.jsx
++++ b/app/components/cards/PostSummary.jsx
+@@ -146,6 +146,7 @@ class PostSummary extends React.Component {
+         const {revealNsfw} = this.state
+ 
+         if(isNsfw) {
++/*
+             if(nsfwPref === 'hide') {
+                 // user wishes to hide these posts entirely
+                 return null;
+@@ -166,6 +167,7 @@ class PostSummary extends React.Component {
+                     </article>
+                 )
+             }
++*/
+         }
+ 
+         let thumb = null;
+@@ -180,7 +182,8 @@ class PostSummary extends React.Component {
+           }
+         }
+         const commentClasses = []
+-        if(gray || ignore) commentClasses.push('downvoted') // rephide
++
++/*        if(gray || ignore) commentClasses.push('downvoted') // rephide*/
+ 
+         return (
+             <article className={'PostSummary hentry' + (thumb ? ' with-image ' : ' ') + commentClasses.join(' ')} itemScope itemType ="http://schema.org/blogPost">
+diff --git a/app/components/pages/Post.jsx b/app/components/pages/Post.jsx
+index ea1523b..b805c80 100644
+--- a/app/components/pages/Post.jsx
++++ b/app/components/pages/Post.jsx
+@@ -69,6 +69,7 @@ class Post extends React.Component {
+ 
+         if (!dis) return null;
+ 
++/*
+         if(!showAnyway) {
+             const {gray} = dis.get('stats').toJS()
+             if(gray) {
+@@ -85,7 +86,7 @@ class Post extends React.Component {
+                     </div>
+                 )
+             }
+-        }
++        }*/
+ 
+         const replies = dis.get('replies').toJS();
+ 
+diff --git a/app/components/pages/UserProfile.jsx b/app/components/pages/UserProfile.jsx
+index c2e3b1b..7625df7 100644
+--- a/app/components/pages/UserProfile.jsx
++++ b/app/components/pages/UserProfile.jsx
+@@ -265,7 +265,7 @@ export default class UserProfile extends React.Component {
+                                 loading={fetching}
+                                 category="recent_replies"
+                                 loadMore={this.loadMore}
+-                                showSpam={false}
++                                showSpam={true}
+                             />
+                             {isMyAccount && <MarkNotificationRead fields="comment_reply" account={account.name} />}
+                         </div>
